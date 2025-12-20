@@ -18,5 +18,25 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="patient_login.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="reception_login.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="manager_login.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="reception.h">
+      <Filter>头文件</Filter>
+    </ClCompile>
+    <ClCompile Include="manager.h">
+      <Filter>头文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="patient.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
