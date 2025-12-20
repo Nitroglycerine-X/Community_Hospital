@@ -4,6 +4,7 @@
 #include <jdbc/cppconn/statement.h>
 #include <jdbc/cppconn/resultset.h>
 #include <jdbc/cppconn/exception.h>
+#include "patient.h"
 using namespace std;
 
 int main() {
@@ -26,12 +27,72 @@ int main() {
 			system("pause");
 			exit(0);
 			break;
-		case 1:
+		case 1: {
+			Patient P;
+			P.Home();
 			break;
-		case 2:
+		}
+		case 2: {
 			break;
-		case 3:
+		}
+		case 3: {
 			break;
+		}
+		default:
+			system("cls");
+			break;
+		}
+	}
+	
+
+
+
+
+	/*数据库操作模板
+	try {
+		//首次运行初始化系统，建立数据库（若不存在）
+		sql::mysql::MySQL_Driver* driver;
+		sql::Connection* con;
+		sql::Statement* stmt;
+
+		driver = sql::mysql::get_driver_instance();
+		con = driver->connect("tcp://localhost:3306", "root", "123456");
+		stmt = con->createStatement();
+		stmt->execute("CREATE DATABASE IF NOT EXISTS community_hospital CHARACTER SET utf8mb4");
+	}
+	catch (sql::SQLException& e) {
+		cout << "MySQL error: " << e.what() << endl;
+	}
+
+	int op = 0;
+	while (true) {
+		//系统入口
+		cout << "********************************************" << endl;
+		cout << "*******  欢迎使用社区医院管理系统！ ********" << endl;
+		cout << "************** 0.退出系统 ******************" << endl;
+		cout << "************** 1.问诊登录 ******************" << endl;
+		cout << "************** 2.前台登录 ******************" << endl;
+		cout << "************** 3.管理登录 ******************" << endl;
+		cout << "********************************************" << endl;
+		cout << "请选择登录方式： " << endl;
+		cin >> op;
+		switch (op) {
+		case 0:
+			cout << "再见！" << endl;
+			system("pause");
+			exit(0);
+			break;
+		case 1: {
+			Patient P;
+			P.Home();
+			break;
+		}
+		case 2: {
+			break;
+		}
+		case 3: {
+			break;
+		}
 		default:
 			system("cls");
 			break;

@@ -129,10 +129,10 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="manager.h" />
-    <ClCompile Include="manager_login.cpp" />
-    <ClCompile Include="patient_login.cpp" />
+    <ClCompile Include="manager.cpp" />
+    <ClCompile Include="patient.cpp" />
     <ClCompile Include="reception.h" />
-    <ClCompile Include="reception_login.cpp" />
+    <ClCompile Include="reception.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="patient.h" />

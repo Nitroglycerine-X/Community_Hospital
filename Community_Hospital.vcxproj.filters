@@ -18,13 +18,13 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="patient_login.cpp">
+    <ClCompile Include="patient.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="reception_login.cpp">
+    <ClCompile Include="reception.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="manager_login.cpp">
+    <ClCompile Include="manager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="reception.h">
