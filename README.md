@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS bill (
 ```sql
 -- 1. 创建用户
 CREATE USER IF NOT EXISTS 'patient'@'localhost' 
-IDENTIFIED BY '123456'; -- 替换为自定义密码
+IDENTIFIED BY '123456';
 
 -- 2. 对目标表逐个赋予所有权限
 GRANT ALL PRIVILEGES ON community_hospital.patient TO 'patient'@'localhost';
@@ -108,7 +108,7 @@ GRANT ALL PRIVILEGES ON community_hospital.schedule TO 'patient'@'localhost';
 GRANT ALL PRIVILEGES ON community_hospital.visit TO 'patient'@'localhost';
 GRANT ALL PRIVILEGES ON community_hospital.bill TO 'patient'@'localhost';
 
--- 3. 刷新权限（MySQL 8.0+ 可省略，但显式执行更稳妥）
+-- 3. 刷新权限
 FLUSH PRIVILEGES;
 ```
 
@@ -139,49 +139,11 @@ FLUSH PRIVILEGES;
 - **就诊管理**：就诊记录创建、状态跟踪
 - **账单管理**：费用计算、支付记录、医保结算
 
-## 项目结构
-```
-Community_Hospital/
-├── sql/                     # 数据库脚本目录
-│   └── schema.sql           # 数据库表结构创建脚本
-├── src/                     # 源代码目录
-│   ├── main.cpp             # 主程序入口
-│   ├── db/                  # 数据库操作模块
-│   │   ├── db_connection.h  # 数据库连接类
-│   │   └── db_operation.cpp # 数据库操作实现
-│   ├── model/               # 数据模型类
-│   ├── service/             # 业务逻辑层
-│   └── utils/               # 工具类
-├── README.md                # 项目说明文档
-└── Makefile/CMakeLists.txt  # 构建脚本
-```
-
 ## 快速开始
 ### 环境准备
 1. 安装 MySQL 8.0+ 并启动服务
 2. 下载并配置 [MySQL Connector C++ 8.3.0](https://dev.mysql.com/downloads/connector/cpp/)
 3. 配置环境变量（确保连接器库可被编译器找到）
-
-### 部署步骤
-1. 克隆本仓库
-   ```bash
-   git clone https://github.com/your-username/Community_Hospital.git
-   cd Community_Hospital
-   ```
-2. 执行数据库脚本
-   ```bash
-   mysql -u root -p < sql/schema.sql
-   ```
-3. 编译项目（以CMake为例）
-   ```bash
-   mkdir build && cd build
-   cmake ..
-   make
-   ```
-4. 运行程序
-   ```bash
-   ./Community_Hospital
-   ```
 
 ## 注意事项
 1. 确保 MySQL 服务正常运行，且连接器版本与 MySQL 服务器版本兼容
