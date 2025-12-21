@@ -128,13 +128,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="manager.h" />
     <ClCompile Include="manager.cpp" />
+    <ClCompile Include="manager.h" />
     <ClCompile Include="patient.cpp" />
-    <ClCompile Include="reception.h" />
     <ClCompile Include="reception.cpp" />
+    <ClCompile Include="reception.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="my_mysql.h" />
     <ClInclude Include="patient.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

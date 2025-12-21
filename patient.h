@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <string>
-#include <sstream>
+#include <iostream>
+#include "my_mysql.h"
 using namespace std;
 class Patient {
 public:

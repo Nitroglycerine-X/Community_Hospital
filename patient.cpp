@@ -1,17 +1,12 @@
-﻿#include"patient.h"
+﻿#include "patient.h"
 #include <iostream>
-#include <jdbc/mysql_driver.h>
-#include <jdbc/mysql_connection.h>
-#include <jdbc/cppconn/statement.h>
-#include <jdbc/cppconn/resultset.h>
-#include <jdbc/cppconn/exception.h>
 //患者功能选择
 void Patient::Home() {
 	cout << "请输入您的身份证号: " << endl; cin >> id_card;
 	cout << "请输入您的姓名: " << endl; cin >> name;
 	cout << "请输入您的性别: " << endl; cin >> gender;
 	cout << "请输入您的联系电话: " << endl; cin >> phone;
-	cout << "请输入您的就诊状态: " << endl; cin >> visit_status;
+	visit_status = "未就诊";
 	//基本信息插入数据库
 	try {
 		sql::mysql::MySQL_Driver* driver;
@@ -63,6 +58,7 @@ void Patient::Home() {
 			Visit();
 			break;
 		case 5:
+			Settle();
 			break;
 		default:
 			cout << "请选择有效操作！" << endl;
@@ -131,17 +127,6 @@ bool Patient::Appoint(int x) {
 }
 //线上自行预约患者就诊
 bool Patient::Visit() {
-	/*CREATE TABLE visit (
-    visit_id INT PRIMARY KEY AUTO_INCREMENT COMMENT '就诊ID（主键）',
-    id_card VARCHAR(18) COMMENT '患者身份证号（外键）',
-    room_num INT COMMENT '诊室号',
-    doctor_id INT COMMENT '医生工号（外键）',
-    visit_time DATETIME COMMENT '就诊时间',
-    visit_status VARCHAR(20) COMMENT '就诊状态（进行中/已离院）',
-    -- 外键关联患者表、员工表
-    FOREIGN KEY (id_card) REFERENCES patient(id_card),
-    FOREIGN KEY (doctor_id) REFERENCES employee(emp_id)
-	) COMMENT '就诊信息表';*/
 	try {
 		sql::mysql::MySQL_Driver* driver;
 		sql::Connection* con;
@@ -188,9 +173,14 @@ bool Patient::Visit() {
 			<< id_card << "','"
 			<< room_num << "','"
 			<< doctor_id << "', NOW(),'"
-			<< visit_status << "')" << endl;
+			<< visit_status << "')";
 		string sql_3 = sql_ss3.str();
 		stmt->executeUpdate(sql_3.c_str());
+		//预约状态appt_status修改为“已完成”
+		std::ostringstream sql_ss4;
+		sql_ss4 << "UPDATE appointment SET appt_status = '已完成' WHERE id_card = '" << id_card << "'";
+		string sql_4 = sql_ss4.str();
+		stmt->executeUpdate(sql_4.c_str());
 		cout << "请前往" << room_num << "室，找" << doctor_id << "医生就医。" << endl;
 	}
 	catch (sql::SQLException& e) {
@@ -211,9 +201,27 @@ bool Patient::Settle() {
 		con = driver->connect("tcp://localhost:3306", "root", "123456");
 		con->setSchema("community_hospital");
 		stmt = con->createStatement();
+
+		std::ostringstream sql_ss;
+		sql_ss << "SELECT SUM(total_fee) AS total_fee, SUM(medical_insur) AS medical_insur, SUM(self_pay) AS total_price "
+			<< "FROM bill JOIN visit ON bill.visit_id = visit.visit_id "
+			<< "WHERE visit.id_card = '" << id_card << "' "
+			<< "GROUP BY visit.id_card;";;
+		string sql = sql_ss.str();
+		res = stmt->executeQuery(sql.c_str());
+		if (res->next() == false) {
+			cout << "没有您的消费记录或未结清账单！" << endl;
+			return false;
+		}
+		double total_fee,medical_insur,total_price;
+		total_fee = res->getDouble("total_fee");
+		medical_insur = res->getDouble("medical_insur");
+		total_price = res->getDouble("total_price");
+		cout << "医疗总费用：" << total_fee << "元；其中医保承担：" << medical_insur << "元；您需支付：" << total_price << "元。" << endl;
 	}
 	catch (sql::SQLException& e) {
 		cout << "MySQL error: " << e.what() << endl;
 		return false;
 	}
+	return true;
 }
