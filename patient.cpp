@@ -15,7 +15,7 @@ void Patient::Home() {
 		
 		driver = sql::mysql::get_driver_instance();
 		//使用患者用户登录，实现权限管理
-		con = driver->connect("tcp://localhost:3306", "root", "123456");
+		con = driver->connect("tcp://localhost:3306", "patient", "123456");
 		con->setSchema("community_hospital");
 		stmt = con->createStatement();
 		//SQL拼接代码
@@ -224,4 +224,5 @@ bool Patient::Settle() {
 		return false;
 	}
 	return true;
+
 }
