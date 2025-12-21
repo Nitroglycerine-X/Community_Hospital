@@ -95,6 +95,22 @@ CREATE TABLE IF NOT EXISTS bill (
     FOREIGN KEY (visit_id) REFERENCES visit(visit_id)
 ) COMMENT '账单信息表';
 ```
+### 权限用户管理
+```sql
+-- 1. 创建用户
+CREATE USER IF NOT EXISTS 'patient'@'localhost' 
+IDENTIFIED BY '123456'; -- 替换为自定义密码
+
+-- 2. 对目标表逐个赋予所有权限
+GRANT ALL PRIVILEGES ON community_hospital.patient TO 'patient'@'localhost';
+GRANT ALL PRIVILEGES ON community_hospital.appointment TO 'patient'@'localhost';
+GRANT ALL PRIVILEGES ON community_hospital.schedule TO 'patient'@'localhost';
+GRANT ALL PRIVILEGES ON community_hospital.visit TO 'patient'@'localhost';
+GRANT ALL PRIVILEGES ON community_hospital.bill TO 'patient'@'localhost';
+
+-- 3. 刷新权限（MySQL 8.0+ 可省略，但显式执行更稳妥）
+FLUSH PRIVILEGES;
+```
 
 ### 表关系说明
 - **患者表(patient)** 为核心基础表，关联预约表(appointment)、就诊表(visit)
