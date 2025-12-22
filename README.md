@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS visit (
     room_num INT COMMENT '诊室号',
     doctor_id INT COMMENT '医生工号（外键）',
     visit_time DATETIME COMMENT '就诊时间',
-    visit_status VARCHAR(20) COMMENT '就诊状态（进行中/已离院）',
+    visit_status VARCHAR(20) COMMENT '就诊状态（未就诊/就诊中/已离院）',
     -- 外键关联患者表、员工表
     FOREIGN KEY (id_card) REFERENCES patient(id_card),
     FOREIGN KEY (doctor_id) REFERENCES employee(emp_id)
@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS bill (
     medical_insur DECIMAL(10,2) COMMENT '医保金额',
     self_pay DECIMAL(10,2) COMMENT '自费金额',
     pay_time DATETIME COMMENT '收费时间',
-    pay_method VARCHAR(20) COMMENT '支付方式（医保/自费/混合）',
+    pay_method VARCHAR(20) COMMENT '支付方式（银行卡支付/微信支付/支付宝支付/现金支付）',
     actual_pay DECIMAL(10,2) COMMENT '实际收取金额',
     -- 外键关联就诊表
     FOREIGN KEY (visit_id) REFERENCES visit(visit_id)
