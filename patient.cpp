@@ -103,11 +103,11 @@ bool Patient::Appoint(int x) {
 			res = stmt->executeQuery(sql.c_str());
 
 			while (res->next()) {
-				cout << "appt_id: " << res->getInt("appt_id") << endl;
-				cout << "id_card: " << res->getString("id_card") << endl;
-				cout << "department: " << res->getString("department") << endl;
-				cout << "expect_time: " << res->getString("expect_time") << endl;
-				cout << "appt_status: " << res->getString("appt_status") << endl;
+				cout << "预约号: " << res->getInt("appt_id") << endl;
+				cout << "身份证号: " << res->getString("id_card") << endl;
+				cout << "科室: " << res->getString("department") << endl;
+				cout << "预约时间: " << res->getString("expect_time") << endl;
+				cout << "预约状态: " << res->getString("appt_status") << endl;
 			}
 		}
 		else {
@@ -224,5 +224,4 @@ bool Patient::Settle() {
 		return false;
 	}
 	return true;
-
 }

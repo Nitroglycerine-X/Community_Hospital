@@ -98,13 +98,13 @@ bool Manager::Make_Schedule() {
 		case 0: {
 			res = stmt->executeQuery("SELECT * FROM schedule");
 			while (res->next()) {
-				cout << "schedule_id: " << res->getInt("schedule_id") << endl;
-				cout << "room_num: " << res->getInt("room_num") << endl;
-				cout << "department: " << res->getString("department") << endl;
-				cout << "doctor_id: " << res->getInt("doctor_id") << endl;
-				cout << "start_time: " << res->getString("start_time") << endl;
-				cout << "end_time: " << res->getString("end_time") << endl;
-				cout << "schedule_status: " << res->getString("schedule_status") << endl;
+				cout << "排班号: " << res->getInt("schedule_id") << endl;
+				cout << "诊室号: " << res->getInt("room_num") << endl;
+				cout << "科室: " << res->getString("department") << endl;
+				cout << "医生工号: " << res->getInt("doctor_id") << endl;
+				cout << "开始时间: " << res->getString("start_time") << endl;
+				cout << "结束时间: " << res->getString("end_time") << endl;
+				cout << "排班状态: " << res->getString("schedule_status") << endl;
 				cout << "------------------------------------------------" << endl;
 			}
 			break;
@@ -218,10 +218,10 @@ bool Manager::Bill_Query() {
 			res = stmt->executeQuery(sql.c_str());
 			while (res->next()) {
 				cnt++;
-				cout << "bill_id: " << res->getInt("bill_id") << endl;
-				cout << "total_fee: " << res->getDouble("total_fee") << endl;
-				cout << "medical_insur: " << res->getDouble("medical_insur") << endl;
-				cout << "self_pay: " << res->getDouble("self_pay") << endl;
+				cout << "账单号: " << res->getInt("bill_id") << endl;
+				cout << "总开销: " << res->getDouble("total_fee") << endl;
+				cout << "医保承担: " << res->getDouble("medical_insur") << endl;
+				cout << "自费部分: " << res->getDouble("self_pay") << endl;
 				cout << "----------------------------------------" << endl;
 				total_income += res->getDouble("self_pay");
 			}
@@ -245,10 +245,10 @@ bool Manager::Bill_Query() {
 			res = stmt->executeQuery(sql.c_str());
 			while (res->next()) {
 				cnt++;
-				cout << "bill_id: " << res->getInt("bill_id") << endl;
-				cout << "total_fee: " << res->getDouble("total_fee") << endl;
-				cout << "medical_insur: " << res->getDouble("medical_insur") << endl;
-				cout << "self_pay: " << res->getDouble("self_pay") << endl;
+				cout << "账单号: " << res->getInt("bill_id") << endl;
+				cout << "总开销: " << res->getDouble("total_fee") << endl;
+				cout << "医保承担: " << res->getDouble("medical_insur") << endl;
+				cout << "自费部分: " << res->getDouble("self_pay") << endl;
 				cout << "----------------------------------------" << endl;
 				total_income += res->getDouble("self_pay");
 			}
@@ -271,10 +271,10 @@ bool Manager::Bill_Query() {
 			res = stmt->executeQuery(sql.c_str());
 			while (res->next()) {
 				cnt++;
-				cout << "bill_id: " << res->getInt("bill_id") << endl;
-				cout << "total_fee: " << res->getDouble("total_fee") << endl;
-				cout << "medical_insur: " << res->getDouble("medical_insur") << endl;
-				cout << "self_pay: " << res->getDouble("self_pay") << endl;
+				cout << "账单号: " << res->getInt("bill_id") << endl;
+				cout << "总开销: " << res->getDouble("total_fee") << endl;
+				cout << "医保承担: " << res->getDouble("medical_insur") << endl;
+				cout << "自费部分: " << res->getDouble("self_pay") << endl;
 				cout << "----------------------------------------" << endl;
 				total_income += res->getDouble("self_pay");
 			}
@@ -316,11 +316,11 @@ bool Manager::Get_Patient_Info() {
 				cout << "不存在该患者！" << endl;
 				return false;
 			}
-			cout << "id_card: " << res->getString("id_card") << endl;
-			cout << "name: " << res->getString("name") << endl;
-			cout << "gender: " << res->getString("gender") << endl;
-			cout << "phone: " << res->getString("phone") << endl;
-			cout << "visti_status: " << res->getString("visit_status") << endl;
+			cout << "身份证号: " << res->getString("id_card") << endl;
+			cout << "姓名: " << res->getString("name") << endl;
+			cout << "性别: " << res->getString("gender") << endl;
+			cout << "联系方式: " << res->getString("phone") << endl;
+			cout << "就诊状态: " << res->getString("visit_status") << endl;
 			cout << "----------------------------------------------" << endl;
 			return true;
 			break;
@@ -338,11 +338,11 @@ bool Manager::Get_Patient_Info() {
 			int flag = 0;
 			while (res->next()) {
 				flag++;
-				cout << "id_card: " << res->getString("id_card") << endl;
-				cout << "name: " << res->getString("name") << endl;
-				cout << "gender: " << res->getString("gender") << endl;
-				cout << "phone: " << res->getString("phone") << endl;
-				cout << "visti_status: " << res->getString("visit_status") << endl;
+				cout << "身份证号: " << res->getString("id_card") << endl;
+				cout << "姓名: " << res->getString("name") << endl;
+				cout << "性别: " << res->getString("gender") << endl;
+				cout << "联系方式: " << res->getString("phone") << endl;
+				cout << "就诊状态: " << res->getString("visit_status") << endl;
 				cout << "----------------------------------------------" << endl;
 			}
 			cout << "该时间段内共有" << flag  << "人就诊。"  << endl;
@@ -379,14 +379,14 @@ bool Manager::Get_Employee_Info() {
 			cout << "不存在该员工！" << endl;
 			return false;
 		}
-		cout << "emp_id: " << res->getInt("emp_id") << endl;
-		cout << "name: " << res->getString("name") << endl;
-		cout << "position: " << res->getString("position") << endl;
-		cout << "department: " << res->getString("department") << endl;
-		cout << "title: " << res->getString("title") << endl;
-		cout << "phone: " << res->getString("phone") << endl;
-		cout << "work_status: " << res->getString("work_status") << endl;
-		cout << "schedule_right: " << res->getInt("schedule_right") << endl;
+		cout << "员工号: " << res->getInt("emp_id") << endl;
+		cout << "姓名: " << res->getString("name") << endl;
+		cout << "岗位: " << res->getString("position") << endl;
+		cout << "科室: " << res->getString("department") << endl;
+		cout << "职称: " << res->getString("title") << endl;
+		cout << "联系方式: " << res->getString("phone") << endl;
+		cout << "工作状态: " << res->getString("work_status") << endl;
+		cout << "排班权限: " << res->getInt("schedule_right") << endl;
 		cout << "----------------------------------------------" << endl;
 }
 	catch (sql::SQLException& e) {
