@@ -101,13 +101,21 @@ bool Patient::Appoint(int x) {
 				<< id_card << "'";
 			std::string sql = sql_ss.str();
 			res = stmt->executeQuery(sql.c_str());
-
+			int cnt = 0;
 			while (res->next()) {
+				cnt++;
 				cout << "预约号: " << res->getInt("appt_id") << endl;
 				cout << "身份证号: " << res->getString("id_card") << endl;
 				cout << "科室: " << res->getString("department") << endl;
 				cout << "预约时间: " << res->getString("expect_time") << endl;
 				cout << "预约状态: " << res->getString("appt_status") << endl;
+				cout << "-------------------------------------------" << endl;
+			}
+			if (cnt == 0) {
+				cout << "未查询到您的预约信息！" << endl;
+			}
+			else {
+				cout << "共查询到您的 " << cnt << " 条预约信息。" << endl;
 			}
 		}
 		else {
@@ -181,6 +189,13 @@ bool Patient::Visit() {
 		sql_ss4 << "UPDATE appointment SET appt_status = '已完成' WHERE id_card = '" << id_card << "'";
 		string sql_4 = sql_ss4.str();
 		stmt->executeUpdate(sql_4.c_str());
+		//患者信息visit_status修改为“进行中”
+		std::ostringstream sql_ss5;
+		sql_ss5 << "UPDATE patient SET visit_status = '"
+			<< visit_status << "'WHERE id_card = "
+			<< id_card;
+		string sql_5 = sql_ss5.str();
+		stmt->executeUpdate(sql_5.c_str());
 		cout << "请前往" << room_num << "室，找" << doctor_id << "医生就医。" << endl;
 	}
 	catch (sql::SQLException& e) {
@@ -210,7 +225,7 @@ bool Patient::Settle() {
 		string sql = sql_ss.str();
 		res = stmt->executeQuery(sql.c_str());
 		if (res->next() == false) {
-			cout << "没有您的消费记录或未结清账单！" << endl;
+			cout << "没有您的消费记录或未结清账单！请先到前台登记出院方可生成账单。" << endl;
 			return false;
 		}
 		double total_fee,medical_insur,total_price;
