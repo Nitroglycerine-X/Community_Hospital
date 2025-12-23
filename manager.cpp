@@ -278,7 +278,7 @@ bool Manager::Bill_Query() {
 				cout << "----------------------------------------" << endl;
 				total_income += res->getDouble("self_pay");
 			}
-			cout << "该时间段内,科室：" << department << "接诊记录中共有" << cnt << "条收入记录，" << "共收入" << total_income << "元" << endl;
+			cout << "该时间段内,科室：" << department << "接诊记录中共有" << cnt << "条收入记录，" << "共收入" << total_income << "元。" << endl;
 			break;
 		}
 		default:
@@ -426,3 +426,4 @@ bool Manager::Change_Employee_Info() {
 	return true;
 
 }
+
