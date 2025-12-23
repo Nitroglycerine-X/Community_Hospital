@@ -190,7 +190,7 @@ bool Manager::Make_Schedule() {
  	}
 	return true;
 }
-//账单查询（ 按日期/科室/医生统计门诊收入） 
+//账单查询（按日期/科室/医生统计门诊收入） 
 bool Manager::Bill_Query() {
 	cout << "请选择操作方式：1.时间段内收入；2.医生+时间段内收入；3.科室+时间段内收入" << endl;
 	int op = 0;
@@ -424,4 +424,5 @@ bool Manager::Change_Employee_Info() {
 		cout << "MySQL error: " << e.what() << endl;
 	}
 	return true;
+
 }
