@@ -190,7 +190,7 @@ bool Manager::Make_Schedule() {
  	}
 	return true;
 }
-//账单查询（按日期/科室/医生统计门诊收入） 
+//账单查询（ 按日期/科室/医生统计门诊收入） 
 bool Manager::Bill_Query() {
 	cout << "请选择操作方式：1.时间段内收入；2.医生+时间段内收入；3.科室+时间段内收入" << endl;
 	int op = 0;
@@ -278,7 +278,7 @@ bool Manager::Bill_Query() {
 				cout << "----------------------------------------" << endl;
 				total_income += res->getDouble("self_pay");
 			}
-			cout << "该时间段内,科室：" << department << "接诊记录中共有" << cnt << "条收入记录，" << "共收入" << total_income << "元。" << endl;
+			cout << "该时间段内,科室：" << department << "接诊记录中共有" << cnt << "条收入记录，" << "共收入" << total_income << "元" << endl;
 			break;
 		}
 		default:
@@ -424,6 +424,4 @@ bool Manager::Change_Employee_Info() {
 		cout << "MySQL error: " << e.what() << endl;
 	}
 	return true;
-
 }
-
